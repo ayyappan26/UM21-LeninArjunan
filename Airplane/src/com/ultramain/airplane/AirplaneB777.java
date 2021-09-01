@@ -5,20 +5,20 @@ public class AirplaneB777
 
 	public static void main(String[] args)
 	{
-		Cabin mycabin = new Cabin(); //same class Reference = same class object
-		mycabin.seats(); // Child overrides the parent reference during the compile time itself
-		mycabin.oxygenpack(); // child's own method
-		mycabin.engine(); // invoking the parent method.
+		Cabin myCabin = new Cabin(); //same class Reference = same class object
+		myCabin.seats(); // Child overrides the parent reference during the compile time itself
+		myCabin.oxygenPack(); // child's own method
+		myCabin.engine(); // invoking the parent method.
 		
 		System.out.println("******************************************************************");
 		
-		Control mycontrol01 =  new Engine01(); // parent reference = child object --> implicit type casting
-		mycontrol01.fan(); // child overrides the parent reference during the run time of the program execution
-		mycontrol01.fuel(); // parent own methods
-		mycontrol01.seats();// parents own methods		
+		Control myControl01 =  new Engine01(); // parent reference = child object --> implicit type casting
+		myControl01.fan(); // child overrides the parent reference during the run time of the program execution
+		myControl01.fuel(); // parent own methods
+		myControl01.seats();// parents own methods		
 		
-		Engine01 myengine01 =  (Engine01) mycontrol01; // explicit casting
-		myengine01.engine();
+		Engine01 myEngine01 =  (Engine01) myControl01; // explicit casting
+		myEngine01.engine();
 		
 		
 	}
@@ -69,7 +69,7 @@ class Cabin extends Control{
 	{
 		System.out.println("Cabin has 300 seats");
 	}
-	public void oxygenpack()
+	public void oxygenPack()
 	{
 		System.out.println("Cabin has only seats with 200 oxygen packs for passengers");
 	}
