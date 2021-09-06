@@ -33,9 +33,9 @@ public class Business {
 		case 3:
 			updateEmployee(dao);
 			break;
-//		case 4:
-//			deleteEmployee(dao);
-//			break;
+	case 4:
+          deleteEmployee(dao);
+          break;
 		case 5:
 			return;
 			
@@ -72,13 +72,17 @@ public class Business {
 		
 	}
 	
-	/*
-	 * public void deleteEmployee(EmpDao dao) { try { dao.deleteEmployee(); } catch
-	 * (SQLException e) { System.out.println(e.getMessage()); }
-	 */
-		
-	
 
+	 public void deleteEmployee(EmpDao dao)
+	 { 
+		 try 
+		 { dao.deleteEmployee(); 
+		 } catch (SQLException e) 
+		 { System.out.println(e.getMessage());
+	 
+		 }
+	 }
+	 
 	public EmpDto getEmpDetails(){
 		Scanner scan = Scan1.getScannerInstance();
 		EmpDto empDto = new EmpDto();
@@ -94,7 +98,7 @@ public class Business {
 		empDto.setPhone_number(scan.nextInt());
 		System.out.println("Enter Department : ");
 		empDto.setDepartment(scan.next());
-		return empDto;
-		
+		return empDto;	
+	
 	}
 }
