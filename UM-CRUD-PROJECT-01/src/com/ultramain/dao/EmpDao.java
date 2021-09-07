@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import com.ultramain.dto.EmpDto;
@@ -44,6 +48,59 @@ public class EmpDao {
 			System.out.println("Department : " +  department);
 			System.out.println("----------------------------------");
 
+		}
+	}
+
+	
+	/**
+	 * Views the employee details based on the Department ID given by the user.
+	 * 
+	 * @throws SQLException
+	 */
+	public void viewEmployeesByDept() throws SQLException {
+		Connection con = DbConnection.getDbConnection();
+		System.out.println("Enter the Department ID to view the details: ");
+		Scanner scan = new Scanner(System.in);
+		String dept = scan.next();
+		String sqlQuery = "Select Employee_ID, First_Name, Last_Name, Salary, Phone_Number, Department "
+				           + "FROM employee";
+		PreparedStatement pst = con.prepareStatement(sqlQuery);
+		ResultSet rs = pst.executeQuery();
+		
+		HashMap<String, List<EmpDto>>  empDetailsMap = new HashMap<String, List<EmpDto>>();
+		List<EmpDto> empDtoList = new ArrayList<EmpDto>();
+		while (rs.next()) {
+			EmpDto empDto = new EmpDto();
+			empDto.setEmployeeId(rs.getInt(1));
+			empDto.setFirstName(rs.getString(2));
+			empDto.setLastName(rs.getString(3));
+			empDto.setSalary(rs.getInt(4));
+			empDto.setPhone_number(rs.getInt(5));
+			empDto.setDepartment(rs.getString(6).toUpperCase());
+
+			empDtoList = empDetailsMap.get(empDto.getDepartment().toUpperCase());
+			if (empDtoList == null || empDtoList.isEmpty()) {
+				empDtoList = new ArrayList<EmpDto>();
+				empDetailsMap.put(empDto.getDepartment().toUpperCase(), empDtoList);
+			}
+			empDtoList.add(empDto);
+		}
+		List<EmpDto> empDtoListByDept = empDetailsMap.get(dept.toUpperCase());
+		if (empDtoListByDept != null && !empDtoListByDept.isEmpty()) {
+			for (EmpDto empDto : empDtoListByDept) 
+			{
+				System.out.println("Employee_id : " + empDto.getEmployeeId());
+				System.out.println("First Name : " + empDto.getFirstName());
+				System.out.println("Last Name  : " + empDto.getLastName());
+				System.out.println("Salary     : " + empDto.getSalary());
+				System.out.println("Mobile     : " + empDto.getPhone_number());
+				System.out.println("Department : " + empDto.getDepartment());
+				System.out.println("----------------------------------");
+			}
+		} 
+		else 
+		{
+			System.out.println("No Records found"); 
 		}
 	}
 

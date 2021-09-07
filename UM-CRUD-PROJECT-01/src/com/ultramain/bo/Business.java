@@ -14,11 +14,12 @@ public class Business {
 		Scanner scan = Scan1.getScannerInstance();
 		EmpDao dao = new EmpDao();
 		do{
-			System.out.println("1. View Employee                     >");
-			System.out.println("\n2. Register Employee                 >");
-			System.out.println("\n3. Update Existing Employee Details  >");
-			System.out.println("\n4. Delete Existing Employee Details  >\n Note: Delete option ll permanently delete the details from the Employee table");
-			System.out.println("\n5. Exit ");
+			System.out.println("1. View Employee                          >");
+			System.out.println("\n2. Register Employee                    >");
+			System.out.println("\n3. Update Existing Employee Details     >");
+			System.out.println("\n4. Delete Existing Employee Details     >\n Note: Delete option ll permanently delete the details from the Employee table");
+			System.out.println("\n5. View Employee details by Department  >");
+			System.out.println("\n6. Exit ");
 			System.out.println("\nEnter your choice: ");
 			choice = scan.nextInt();
 		}while(choice ==0);
@@ -33,10 +34,12 @@ public class Business {
 		case 3:
 			updateEmployee(dao);
 			break;
-	case 4:
+	    case 4:
           deleteEmployee(dao);
-          break;
-		case 5:
+          break;      
+         case 5:
+        	 viewEmployeesByDept(dao);
+		case 6:
 			return;
 			
 		}
@@ -46,6 +49,14 @@ public class Business {
 	public void viewEmployees(EmpDao dao){
 		try {
 			dao.viewEmployees();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	public void viewEmployeesByDept(EmpDao dao){
+		try {
+			dao.viewEmployeesByDept();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
